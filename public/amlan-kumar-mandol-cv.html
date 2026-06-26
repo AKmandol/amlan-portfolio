@@ -1,0 +1,221 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Amlan Kumar Mandol - CV</title>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        background: #f4f2ed;
+        color: #17181d;
+        font-family: Arial, Helvetica, sans-serif;
+        line-height: 1.55;
+      }
+
+      .page {
+        width: 794px;
+        min-height: 1123px;
+        margin: 0 auto;
+        padding: 54px 58px;
+        background: #ffffff;
+      }
+
+      header {
+        display: grid;
+        grid-template-columns: 1fr auto;
+        gap: 32px;
+        padding-bottom: 28px;
+        border-bottom: 2px solid #17181d;
+      }
+
+      h1 {
+        margin: 0;
+        font-size: 38px;
+        line-height: 1;
+        letter-spacing: -1.8px;
+      }
+
+      .title {
+        margin: 12px 0 0;
+        color: #4f525b;
+        font-size: 14px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 1.4px;
+      }
+
+      .contact {
+        display: grid;
+        gap: 5px;
+        color: #4f525b;
+        font-size: 12px;
+        text-align: right;
+      }
+
+      section {
+        display: grid;
+        grid-template-columns: 150px 1fr;
+        gap: 28px;
+        padding: 26px 0;
+        border-bottom: 1px solid #d9d7d1;
+      }
+
+      h2 {
+        margin: 0;
+        color: #73757d;
+        font-size: 11px;
+        letter-spacing: 1.4px;
+        text-transform: uppercase;
+      }
+
+      h3 {
+        margin: 0 0 6px;
+        font-size: 17px;
+        letter-spacing: -0.4px;
+      }
+
+      p {
+        margin: 0;
+      }
+
+      .muted {
+        color: #5d6068;
+        font-size: 12px;
+      }
+
+      .entry + .entry {
+        margin-top: 22px;
+      }
+
+      ul {
+        margin: 10px 0 0;
+        padding-left: 18px;
+      }
+
+      li {
+        margin-bottom: 6px;
+        font-size: 13px;
+      }
+
+      .skills {
+        display: grid;
+        gap: 10px;
+      }
+
+      .skills p {
+        font-size: 13px;
+      }
+
+      .skills strong {
+        display: inline-block;
+        min-width: 96px;
+      }
+
+      @page {
+        size: A4;
+        margin: 0;
+      }
+
+      @media print {
+        body {
+          background: #ffffff;
+        }
+
+        .page {
+          width: auto;
+          min-height: auto;
+          margin: 0;
+          box-shadow: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="page">
+      <header>
+        <div>
+          <h1>Amlan Kumar Mandol</h1>
+          <p class="title">Full-Stack Software Engineer</p>
+        </div>
+        <div class="contact">
+          <span>Dhaka, Bangladesh</span>
+          <span>amlankumar47@gmail.com</span>
+          <span>Portfolio: amlan.dev</span>
+        </div>
+      </header>
+
+      <section>
+        <h2>Profile</h2>
+        <p>
+          Full-stack software engineer with 3+ years of experience building CRM
+          systems, fintech workflows, payment integrations, dashboards and
+          API-driven business products using Laravel, AdonisJS and Vue.js.
+        </p>
+      </section>
+
+      <section>
+        <h2>Experience</h2>
+        <div>
+          <div class="entry">
+            <h3>Software Engineer - Netcoden Inc.</h3>
+            <p class="muted">Aug 2023 - Present | Dhaka, Bangladesh</p>
+            <ul>
+              <li>Develop CRM and partner-management products with Laravel, AdonisJS and Vue.js.</li>
+              <li>Integrate crypto and card payment gateways with callback-driven transaction workflows.</li>
+              <li>Own Git workflows, production releases and Linux-based application operations.</li>
+            </ul>
+          </div>
+
+          <div class="entry">
+            <h3>Full-Stack Developer - Tech Solution IT Ltd.</h3>
+            <p class="muted">May 2022 - Jun 2023 | Dhaka, Bangladesh</p>
+            <ul>
+              <li>Led development of Laravel and Vue.js applications for multiple business domains.</li>
+              <li>Designed relational data models and improved application query performance.</li>
+              <li>Implemented payment, analytics, CRM and communication API integrations.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <h2>Selected Work</h2>
+        <div>
+          <div class="entry">
+            <h3>Crypto Deposit System</h3>
+            <p class="muted">AdonisJS, Vue.js, Crypto APIs, REST</p>
+            <p>Built BTC, ETH and USDT deposit workflows with callback confirmation and transaction tracking.</p>
+          </div>
+
+          <div class="entry">
+            <h3>UITFX Admin, Partner & Client Portal</h3>
+            <p class="muted">Laravel, AdonisJS, Vue.js, ApexCharts</p>
+            <p>Worked on CRM portals with IB hierarchy, commission tracking, dashboards and reporting.</p>
+          </div>
+
+          <div class="entry">
+            <h3>BestTourInfo Booking Platform</h3>
+            <p class="muted">Laravel, Vue.js, Stripe, SSLCommerz</p>
+            <p>Developed package management, booking flows, admin controls and online payment integration.</p>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <h2>Skills</h2>
+        <div class="skills">
+          <p><strong>Backend</strong> Laravel, AdonisJS, Node.js, REST API, JWT</p>
+          <p><strong>Frontend</strong> Vue.js, Vuex, Vuetify, ApexCharts, TailwindCSS</p>
+          <p><strong>Database</strong> MySQL, Firebase</p>
+          <p><strong>DevOps</strong> Linux, Nginx, PM2, cPanel, Git</p>
+          <p><strong>Payments</strong> Stripe, SSLCommerz, OvyPay, CheezyPay, G-Pay</p>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>
