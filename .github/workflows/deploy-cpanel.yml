@@ -1,4 +1,4 @@
-name: Deploy Vue.js to cPanel
+name: Deploy Vue.js to cPanel (Clean Replace)
 
 on:
   push:
@@ -17,7 +17,7 @@ jobs:
         uses: actions/checkout@v4
 
       # ----------------------------
-      # 2. Node setup
+      # 2. Setup Node
       # ----------------------------
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -38,7 +38,7 @@ jobs:
         run: npm run build
 
       # ----------------------------
-      # 5. Setup SSH (BASE64 FIXED)
+      # 5. Setup SSH (BASE64)
       # ----------------------------
       - name: Setup SSH Key
         run: |
@@ -56,23 +56,27 @@ jobs:
           ssh-keyscan -H "${{ secrets.CPANEL_HOST }}" >> ~/.ssh/known_hosts
 
       # ----------------------------
-      # 6. Debug rsync (IMPORTANT)
+      # 6. DELETE old public_html
       # ----------------------------
-      - name: Check rsync exists
-        run: which rsync && rsync --version
+      - name: Clean cPanel directory
+        run: |
+          ssh -i ~/.ssh/id_rsa \
+            -p ${{ secrets.CPANEL_PORT || 22 }} \
+            ${{ secrets.CPANEL_USER }}@${{ secrets.CPANEL_HOST }} \
+            "rm -rf ~/public_html/*"
 
       # ----------------------------
-      # 7. Deploy
+      # 7. Upload new dist folder
       # ----------------------------
-      - name: Deploy to cPanel
+      - name: Upload dist folder
         run: |
-          rsync -avz --delete \
-            -e "ssh -i ~/.ssh/id_rsa -p ${{ secrets.CPANEL_PORT || 22 }}" \
-            dist/ \
+          scp -r -i ~/.ssh/id_rsa \
+            -P ${{ secrets.CPANEL_PORT || 22 }} \
+            dist/* \
             ${{ secrets.CPANEL_USER }}@${{ secrets.CPANEL_HOST }}:/home/${{ secrets.CPANEL_USER }}/public_html/
 
       # ----------------------------
       # 8. Done
       # ----------------------------
       - name: Success
-        run: echo "🚀 Deployment completed"
+        run: echo "🚀 Clean Vue deploy completed"
