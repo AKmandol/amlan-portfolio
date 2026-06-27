@@ -1,44 +1,91 @@
-# ----------------------------
-# Install rsync (MUST BE FIRST)
-# ----------------------------
-- name: Install rsync
-  run: |
-    sudo apt-get update
-    sudo apt-get install -y rsync
-    rsync --version
+name: Deploy Vue.js to cPanel
 
-# ----------------------------
-# Setup SSH Key (BASE64)
-# ----------------------------
-- name: Setup SSH Key
-  run: |
-    mkdir -p ~/.ssh
-    chmod 700 ~/.ssh
+on:
+  push:
+    branches:
+      - main
 
-    echo "${{ secrets.CPANEL_SSH_KEY_B64 }}" | tr -d '\r\n ' | base64 --decode > ~/.ssh/id_rsa
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
 
-    chmod 600 ~/.ssh/id_rsa
+    steps:
+      # ----------------------------
+      # 1. Checkout code
+      # ----------------------------
+      - name: Checkout Repository
+        uses: actions/checkout@v4
 
-    ssh-keygen -y -f ~/.ssh/id_rsa > /dev/null
+      # ----------------------------
+      # 2. Setup Node.js
+      # ----------------------------
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
 
-    ssh-keyscan -H "${{ secrets.CPANEL_HOST }}" >> ~/.ssh/known_hosts
+      # ----------------------------
+      # 3. Install dependencies
+      # ----------------------------
+      - name: Install Dependencies
+        run: npm ci || npm install
 
-# ----------------------------
-# Test SSH
-# ----------------------------
-- name: Test SSH
-  run: |
-    ssh -i ~/.ssh/id_rsa \
-      -p ${{ secrets.CPANEL_PORT || 22 }} \
-      ${{ secrets.CPANEL_USER }}@${{ secrets.CPANEL_HOST }} \
-      "echo SSH OK"
+      # ----------------------------
+      # 4. Build Vue project
+      # ----------------------------
+      - name: Build Project
+        run: npm run build
 
-# ----------------------------
-# Deploy with rsync
-# ----------------------------
-- name: Deploy Vue dist
-  run: |
-    rsync -avz --delete \
-      -e "ssh -i ~/.ssh/id_rsa -p ${{ secrets.CPANEL_PORT || 22 }}" \
-      dist/ \
-      ${{ secrets.CPANEL_USER }}@${{ secrets.CPANEL_HOST }}:/home/${{ secrets.CPANEL_USER }}/public_html/
+      # ----------------------------
+      # 5. Install rsync (FIX)
+      # ----------------------------
+      - name: Install rsync
+        run: |
+          sudo apt-get update -y
+          sudo apt-get install -y rsync
+          rsync --version
+
+      # ----------------------------
+      # 6. Setup SSH Key (BASE64 FIXED)
+      # ----------------------------
+      - name: Setup SSH Key
+        run: |
+          mkdir -p ~/.ssh
+          chmod 700 ~/.ssh
+
+          echo "${{ secrets.CPANEL_SSH_KEY_B64 }}" \
+            | tr -d '\r\n ' \
+            | base64 --decode > ~/.ssh/id_rsa
+
+          chmod 600 ~/.ssh/id_rsa
+
+          ssh-keygen -y -f ~/.ssh/id_rsa > /dev/null
+
+          ssh-keyscan -H "${{ secrets.CPANEL_HOST }}" >> ~/.ssh/known_hosts
+
+      # ----------------------------
+      # 7. Test SSH Connection
+      # ----------------------------
+      - name: Test SSH Connection
+        run: |
+          ssh -i ~/.ssh/id_rsa \
+            -p ${{ secrets.CPANEL_PORT || 22 }} \
+            ${{ secrets.CPANEL_USER }}@${{ secrets.CPANEL_HOST }} \
+            "echo SSH OK"
+
+      # ----------------------------
+      # 8. Deploy Vue dist to cPanel
+      # ----------------------------
+      - name: Deploy dist folder
+        run: |
+          rsync -avz --delete \
+            -e "ssh -i ~/.ssh/id_rsa -p ${{ secrets.CPANEL_PORT || 22 }}" \
+            dist/ \
+            ${{ secrets.CPANEL_USER }}@${{ secrets.CPANEL_HOST }}:/home/${{ secrets.CPANEL_USER }}/public_html/
+
+      # ----------------------------
+      # 9. Success
+      # ----------------------------
+      - name: Success Message
+        run: echo "🚀 Vue.js deployed successfully to cPanel"
