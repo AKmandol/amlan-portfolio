@@ -1329,7 +1329,6 @@ img {
   font-size: clamp(26px, 2.8vw, 39px);
   font-weight: 600;
   line-height: 1.08;
-  letter-spacing: -0.05em;
 }
 
 .project-body > p {

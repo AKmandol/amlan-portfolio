@@ -37,7 +37,7 @@ const seedProjects = async () => {
 const defaultProjects = [
   {
     number: "04",
-    title: "Custom E-Commerce Platform",
+    title: "E-Commerce Platform",
     category: "E-Commerce",
     description: "Custom shop, admin, checkout and reporting workflow.",
     problem: "Orders, products and payments needed one clean control panel.",
@@ -50,7 +50,7 @@ const defaultProjects = [
   },
   {
     number: "03",
-    title: "BestTourInfo Booking Platform",
+    title: "Travel Platform",
     category: "Travel Technology",
     description: "Travel packages, booking flow, admin tools and payment.",
     problem: "Discovery, booking and payment felt disconnected.",
@@ -76,7 +76,7 @@ const defaultProjects = [
   },
   {
     number: "02",
-    title: "UITFX Admin, Partner & Client Portal",
+    title: "CRM Admin, Partner & Client Portal",
     category: "Forex CRM / Partner Platform",
     description: "CRM portals for admin, partner and client operations.",
     problem: "Teams needed one place for partners, payouts and reports.",
@@ -85,7 +85,7 @@ const defaultProjects = [
     role: "Full-stack features",
     tech: ["Laravel", "AdonisJS", "Vue.js", "ApexCharts"],
     accent: "cyan",
-    link: "https://uitfx.com",
+    link: "https://forexcrm.ca",
   },
 ];
 
