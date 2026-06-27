@@ -17,12 +17,13 @@ jobs:
         uses: actions/checkout@v4
 
       # ----------------------------
-      # 2. Setup Node
+      # 2. Setup Node.js
       # ----------------------------
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 20
+          cache: npm
 
       # ----------------------------
       # 3. Install dependencies
@@ -37,17 +38,14 @@ jobs:
         run: npm run build
 
       # ----------------------------
-      # 5. Setup SSH (FIXED)
+      # 5. Setup SSH Key (FIXED - NO BASE64)
       # ----------------------------
       - name: Setup SSH Key
         run: |
           mkdir -p ~/.ssh
           chmod 700 ~/.ssh
 
-          echo "${{ secrets.CPANEL_SSH_KEY_B64 }}" \
-            | tr -d '\n\r ' \
-            | base64 -d > ~/.ssh/id_rsa
-
+          echo "${{ secrets.CPANEL_SSH_KEY }}" > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
 
           ssh-keygen -y -f ~/.ssh/id_rsa > /dev/null
@@ -55,7 +53,7 @@ jobs:
           ssh-keyscan -H "${{ secrets.CPANEL_HOST }}" >> ~/.ssh/known_hosts
 
       # ----------------------------
-      # 6. Test SSH connection
+      # 6. Test SSH Connection
       # ----------------------------
       - name: Test SSH Connection
         run: |
@@ -65,7 +63,7 @@ jobs:
             "echo SSH OK"
 
       # ----------------------------
-      # 7. Create deploy folder
+      # 7. Create remote directory
       # ----------------------------
       - name: Create Remote Folder
         run: |
@@ -75,9 +73,9 @@ jobs:
             "mkdir -p ${{ secrets.CPANEL_DEPLOY_PATH }}"
 
       # ----------------------------
-      # 8. Deploy dist folder
+      # 8. Deploy via rsync
       # ----------------------------
-      - name: Deploy via rsync
+      - name: Deploy dist folder
         run: |
           rsync -avz --delete \
             -e "ssh -i ~/.ssh/id_rsa -p ${{ secrets.CPANEL_PORT }}" \
@@ -87,5 +85,5 @@ jobs:
       # ----------------------------
       # 9. Done
       # ----------------------------
-      - name: Success
+      - name: Success Message
         run: echo "Deployment completed successfully 🚀"
