@@ -1,4 +1,4 @@
-name: Vue.js CI/CD to cPanel (Zero Downtime)
+name: Deploy Vue.js to cPanel
 
 on:
   push:
@@ -9,10 +9,6 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
 
-    env:
-      RELEASE_DIR: releases
-      CURRENT_DIR: current
-
     steps:
       # ----------------------------
       # 1. Checkout code
@@ -21,7 +17,7 @@ jobs:
         uses: actions/checkout@v4
 
       # ----------------------------
-      # 2. Setup Node with cache
+      # 2. Setup Node.js
       # ----------------------------
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -30,7 +26,7 @@ jobs:
           cache: npm
 
       # ----------------------------
-      # 3. Install dependencies (cached)
+      # 3. Install dependencies
       # ----------------------------
       - name: Install Dependencies
         run: npm ci || npm install
@@ -42,7 +38,7 @@ jobs:
         run: npm run build
 
       # ----------------------------
-      # 5. Setup SSH (FIXED - RAW KEY ONLY)
+      # 5. Setup SSH (FIXED - NO BASE64)
       # ----------------------------
       - name: Setup SSH Key
         run: |
@@ -52,64 +48,32 @@ jobs:
           printf "%s" "${{ secrets.CPANEL_SSH_KEY }}" > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
 
-          echo "Testing key..."
           ssh-keygen -y -f ~/.ssh/id_rsa > /dev/null
+
           ssh-keyscan -H "${{ secrets.CPANEL_HOST }}" >> ~/.ssh/known_hosts
 
       # ----------------------------
-      # 6. Create remote release folder
+      # 6. Test SSH connection
       # ----------------------------
-      - name: Prepare Remote Server
+      - name: Test SSH Connection
         run: |
-          ssh -i ~/.ssh/id_rsa -p ${{ secrets.CPANEL_PORT }} \
-            ${{ secrets.CPANEL_USER }}@${{ secrets.CPANEL_HOST }} << 'EOF'
-
-          mkdir -p $HOME/${{ env.RELEASE_DIR }}
-          mkdir -p $HOME/${{ env.CURRENT_DIR }}
-
-          EOF
+          ssh -i ~/.ssh/id_rsa \
+            -p ${{ secrets.CPANEL_PORT || 22 }} \
+            ${{ secrets.CPANEL_USER }}@${{ secrets.CPANEL_HOST }} \
+            "echo SSH OK"
 
       # ----------------------------
-      # 7. Upload build to new release folder
+      # 7. Deploy to public_html (Vue dist)
       # ----------------------------
-      - name: Upload New Release (rsync)
+      - name: Deploy dist to cPanel
         run: |
-          TIMESTAMP=$(date +%Y%m%d%H%M%S)
-
-          echo "RELEASE=$TIMESTAMP" >> $GITHUB_ENV
-
           rsync -avz --delete \
-            -e "ssh -i ~/.ssh/id_rsa -p ${{ secrets.CPANEL_PORT }}" \
+            -e "ssh -i ~/.ssh/id_rsa -p ${{ secrets.CPANEL_PORT || 22 }}" \
             dist/ \
-            ${{ secrets.CPANEL_USER }}@${{ secrets.CPANEL_HOST }}:~/${{ env.RELEASE_DIR }}/$TIMESTAMP/
+            ${{ secrets.CPANEL_USER }}@${{ secrets.CPANEL_HOST }}:/home/${{ secrets.CPANEL_USER }}/public_html/
 
       # ----------------------------
-      # 8. Switch symlink (ZERO DOWNTIME)
-      # ----------------------------
-      - name: Activate New Release
-        run: |
-          ssh -i ~/.ssh/id_rsa -p ${{ secrets.CPANEL_PORT }} \
-            ${{ secrets.CPANEL_USER }}@${{ secrets.CPANEL_HOST }} << EOF
-
-          ln -sfn \$HOME/${{ env.RELEASE_DIR }}/${{ env.RELEASE }} \$HOME/${{ env.CURRENT_DIR }}
-
-          EOF
-
-      # ----------------------------
-      # 9. Optional cleanup (keep last 3 releases)
-      # ----------------------------
-      - name: Cleanup Old Releases
-        run: |
-          ssh -i ~/.ssh/id_rsa -p ${{ secrets.CPANEL_PORT }} \
-            ${{ secrets.CPANEL_USER }}@${{ secrets.CPANEL_HOST }} << 'EOF'
-
-          cd $HOME/releases
-          ls -1t | tail -n +4 | xargs rm -rf || true
-
-          EOF
-
-      # ----------------------------
-      # 10. Done
+      # 8. Done
       # ----------------------------
       - name: Success
-        run: echo "🚀 Deployment completed with ZERO DOWNTIME"
+        run: echo "🚀 Vue.js deployed successfully to cPanel"
