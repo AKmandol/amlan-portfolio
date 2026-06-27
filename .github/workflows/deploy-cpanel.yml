@@ -38,7 +38,13 @@ jobs:
         run: npm run build
 
       # ----------------------------
-      # 5. Setup SSH (BASE64 FIXED)
+      # 5. Install rsync (FIX FOR YOUR ERROR)
+      # ----------------------------
+      - name: Install rsync
+        run: sudo apt-get update && sudo apt-get install -y rsync
+
+      # ----------------------------
+      # 6. Setup SSH (BASE64 KEY FIXED)
       # ----------------------------
       - name: Setup SSH Key (Base64)
         run: |
@@ -49,13 +55,12 @@ jobs:
 
           chmod 600 ~/.ssh/id_rsa
 
-          # validate key (this is where your previous error happens)
           ssh-keygen -y -f ~/.ssh/id_rsa > /dev/null
 
           ssh-keyscan -H "${{ secrets.CPANEL_HOST }}" >> ~/.ssh/known_hosts
 
       # ----------------------------
-      # 6. Test SSH connection
+      # 7. Test SSH connection
       # ----------------------------
       - name: Test SSH Connection
         run: |
@@ -65,7 +70,7 @@ jobs:
             "echo SSH OK"
 
       # ----------------------------
-      # 7. Deploy dist to cPanel public_html
+      # 8. Deploy to cPanel (public_html)
       # ----------------------------
       - name: Deploy Vue dist
         run: |
@@ -75,7 +80,7 @@ jobs:
             ${{ secrets.CPANEL_USER }}@${{ secrets.CPANEL_HOST }}:/home/${{ secrets.CPANEL_USER }}/public_html/
 
       # ----------------------------
-      # 8. Done
+      # 9. Done
       # ----------------------------
       - name: Success
-        run: echo "🚀 Vue deployed successfully using BASE64 SSH"
+        run: echo "🚀 Vue.js deployed successfully to cPanel"
