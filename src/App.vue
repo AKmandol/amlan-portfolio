@@ -418,20 +418,20 @@ onMounted(async () => {
           </div>
 
           <div class="floating-note tech-note note-laravel">
-            <span>Backend</span>
+            <span>Backend/API</span>
             Laravel
           </div>
           <div class="floating-note tech-note note-adonis">
-            <span>API</span>
+            <span>Backend/API</span>
             AdonisJS
           </div>
           <div class="floating-note tech-note note-vue">
             <span>Frontend</span>
-            Vue.js
+            Vue.js / React.js
           </div>
           <div class="floating-note tech-note note-mysql">
             <span>Database</span>
-            MySQL
+            MySQL / PostgreSQL
           </div>
         </div>
       </section>
