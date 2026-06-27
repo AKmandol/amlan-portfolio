@@ -38,16 +38,18 @@ jobs:
         run: npm run build
 
       # ----------------------------
-      # 5. Setup SSH (FIXED - NO BASE64)
+      # 5. Setup SSH (BASE64 FIXED)
       # ----------------------------
-      - name: Setup SSH Key
+      - name: Setup SSH Key (Base64)
         run: |
           mkdir -p ~/.ssh
           chmod 700 ~/.ssh
 
-          printf "%s" "${{ secrets.CPANEL_SSH_KEY }}" > ~/.ssh/id_rsa
+          echo "${{ secrets.CPANEL_SSH_KEY_B64 }}" | tr -d '\r\n ' | base64 --decode > ~/.ssh/id_rsa
+
           chmod 600 ~/.ssh/id_rsa
 
+          # validate key (this is where your previous error happens)
           ssh-keygen -y -f ~/.ssh/id_rsa > /dev/null
 
           ssh-keyscan -H "${{ secrets.CPANEL_HOST }}" >> ~/.ssh/known_hosts
@@ -63,9 +65,9 @@ jobs:
             "echo SSH OK"
 
       # ----------------------------
-      # 7. Deploy to public_html (Vue dist)
+      # 7. Deploy dist to cPanel public_html
       # ----------------------------
-      - name: Deploy dist to cPanel
+      - name: Deploy Vue dist
         run: |
           rsync -avz --delete \
             -e "ssh -i ~/.ssh/id_rsa -p ${{ secrets.CPANEL_PORT || 22 }}" \
@@ -76,4 +78,4 @@ jobs:
       # 8. Done
       # ----------------------------
       - name: Success
-        run: echo "🚀 Vue.js deployed successfully to cPanel"
+        run: echo "🚀 Vue deployed successfully using BASE64 SSH"
