@@ -11,13 +11,13 @@ jobs:
 
     steps:
       # ----------------------------
-      # 1. Checkout code
+      # 1. Checkout
       # ----------------------------
       - name: Checkout Repository
         uses: actions/checkout@v4
 
       # ----------------------------
-      # 2. Setup Node.js
+      # 2. Node setup
       # ----------------------------
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -32,22 +32,13 @@ jobs:
         run: npm ci || npm install
 
       # ----------------------------
-      # 4. Build Vue project
+      # 4. Build Vue
       # ----------------------------
       - name: Build Project
         run: npm run build
 
       # ----------------------------
-      # 5. Install rsync (FIX)
-      # ----------------------------
-      - name: Install rsync
-        run: |
-          sudo apt-get update -y
-          sudo apt-get install -y rsync
-          rsync --version
-
-      # ----------------------------
-      # 6. Setup SSH Key (BASE64 FIXED)
+      # 5. Setup SSH (BASE64 FIXED)
       # ----------------------------
       - name: Setup SSH Key
         run: |
@@ -65,19 +56,15 @@ jobs:
           ssh-keyscan -H "${{ secrets.CPANEL_HOST }}" >> ~/.ssh/known_hosts
 
       # ----------------------------
-      # 7. Test SSH Connection
+      # 6. Debug rsync (IMPORTANT)
       # ----------------------------
-      - name: Test SSH Connection
-        run: |
-          ssh -i ~/.ssh/id_rsa \
-            -p ${{ secrets.CPANEL_PORT || 22 }} \
-            ${{ secrets.CPANEL_USER }}@${{ secrets.CPANEL_HOST }} \
-            "echo SSH OK"
+      - name: Check rsync exists
+        run: which rsync && rsync --version
 
       # ----------------------------
-      # 8. Deploy Vue dist to cPanel
+      # 7. Deploy
       # ----------------------------
-      - name: Deploy dist folder
+      - name: Deploy to cPanel
         run: |
           rsync -avz --delete \
             -e "ssh -i ~/.ssh/id_rsa -p ${{ secrets.CPANEL_PORT || 22 }}" \
@@ -85,7 +72,7 @@ jobs:
             ${{ secrets.CPANEL_USER }}@${{ secrets.CPANEL_HOST }}:/home/${{ secrets.CPANEL_USER }}/public_html/
 
       # ----------------------------
-      # 9. Success
+      # 8. Done
       # ----------------------------
-      - name: Success Message
-        run: echo "🚀 Vue.js deployed successfully to cPanel"
+      - name: Success
+        run: echo "🚀 Deployment completed"
