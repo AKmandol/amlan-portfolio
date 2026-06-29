@@ -247,7 +247,7 @@ const normalizeExperience = (doc) => {
 const loadPortfolioContent = async () => {
   try {
     const [projectSnapshot, experienceSnapshot] = await Promise.all([
-      getDocs(query(collection(db, "projects"), orderBy("order", "dsce"))),
+      getDocs(query(collection(db, "projects"), orderBy("order", "asc"))),
       getDocs(query(collection(db, "experiences"), orderBy("order", "asc"))),
     ]);
 
