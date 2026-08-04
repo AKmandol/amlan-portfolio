@@ -1,78 +1,29 @@
 ﻿<script setup>
-import { onMounted, ref } from "vue";
-import {
-  collection,
-  addDoc,
-  getDocs,
-  orderBy,
-  query,
-  serverTimestamp,
-  doc,
-  setDoc
-} from "firebase/firestore";
-import { db } from "./firebase";
-import heroVisual from "./assets/hero.png";
+import { ref } from "vue";
 
 const mobileMenuOpen = ref(false);
-
-const seedProjects = async () => {
-  try {
-    for (const project of defaultProjects) {
-      await setDoc(
-        doc(db, "projects", project.number),
-        {
-          ...project,
-          order: Number(project.number),
-          createdAt: serverTimestamp(),
-        }
-      );
-    }
-
-    console.log("Projects synced");
-  } catch (err) {
-    console.error(err);
-  }
-};
 
 const defaultProjects = [
   {
     number: "01",
-    title: "Travel Agency System",
-    category: "Travel & Booking",
+    title: "CRM System",
+    category: "Customer Relationship Management",
     description:
-      "A comprehensive travel agency system for managing bookings, payments, and customer interactions.",
+      "A CRM system designed to help businesses manage customer interactions and data effectively.",
     problem:
-      "The client needed a robust system to handle complex travel bookings and integrate multiple payment gateways.",
+      "The client needed a solution to track customer interactions, manage leads, and improve customer relationships.",
     contribution:
-      "Developed the backend APIs, integrated payment gateways, and built the user interface for managing bookings.",
+      "Developed the CRM backend, implemented lead management features, and created dashboards for analytics.",
     result:
-      "The system streamlined the booking process, improved customer satisfaction, and increased revenue.",
-    role: "Full-Stack Developer",
-    tech: ["Laravel", "Vue.js", "SSLCommerz", "MySQL"],
-    accent: "blue",
-    link: "https://tour.amlanbd.com",
-    image: "/project/tour.webp",
+      "The CRM system improved customer engagement and provided valuable insights into customer behavior.",
+    role: "Software Engineer",
+    tech: ["Laravel", "AdonisJS", "Vue.js", "MySQL"],
+    accent: "orange",
+    link: "https://forexcrm.ca",
+    image: "/project/forex.png",
   },
   {
     number: "02",
-    title: "E-Commerce Platform",
-    category: "Retail & E-Commerce",
-    description:
-      "An e-commerce platform that allows users to browse products, make purchases, and track orders.",
-    problem:
-      "The client required a scalable e-commerce solution with secure payment processing and order management.",
-    contribution:
-      "Implemented the product catalog, shopping cart, checkout process, and integrated multiple payment options.",
-    result:
-      "The platform increased online sales and provided a seamless shopping experience for customers.",
-    role: "Backend Developer",
-    tech: ["Laravel", "Vue.js", "Stripe", "MySQL"],
-    accent: "green",
-    link: "https://ecom.amlanbd.com",
-    image: "/project/ecom.webp",
-  },
-  {
-    number: "03",
     title: "Payment Services",
     category: "Fintech & Payments",
     description:
@@ -90,22 +41,40 @@ const defaultProjects = [
     image: "/project/ovy.jpg",
   },
   {
-    number: "04",
-    title: "CRM System",
-    category: "Customer Relationship Management",
+    number: "03",
+    title: "Travel Agency System",
+    category: "Travel & Booking",
     description:
-      "A CRM system designed to help businesses manage customer interactions and data effectively.",
+      "A comprehensive travel agency system for managing bookings, payments, and customer interactions.",
     problem:
-      "The client needed a solution to track customer interactions, manage leads, and improve customer relationships.",
+      "The client needed a robust system to handle complex travel bookings and integrate multiple payment gateways.",
     contribution:
-      "Developed the CRM backend, implemented lead management features, and created dashboards for analytics.",
+      "Developed the backend APIs, integrated payment gateways, and built the user interface for managing bookings.",
     result:
-      "The CRM system improved customer engagement and provided valuable insights into customer behavior.",
-    role: "Software Engineer",
-    tech: ["Laravel","AdonisJS", "Vue.js", "MySQL"],
-    accent: "orange",
-    link: "https://forexcrm.ca",
-    image: "/project/forex.png",
+      "The system streamlined the booking process, improved customer satisfaction, and increased revenue.",
+    role: "Full-Stack Developer",
+    tech: ["Laravel", "Vue.js", "SSLCommerz", "MySQL"],
+    accent: "blue",
+    link: "https://tour.amlanbd.com",
+    image: "/project/tour.webp",
+  },
+  {
+    number: "04",
+    title: "E-Commerce Platform",
+    category: "Retail & E-Commerce",
+    description:
+      "An e-commerce platform that allows users to browse products, make purchases, and track orders.",
+    problem:
+      "The client required a scalable e-commerce solution with secure payment processing and order management.",
+    contribution:
+      "Implemented the product catalog, shopping cart, checkout process, and integrated multiple payment options.",
+    result:
+      "The platform increased online sales and provided a seamless shopping experience for customers.",
+    role: "Backend Developer",
+    tech: ["Laravel", "Vue.js", "Stripe", "MySQL"],
+    accent: "green",
+    link: "https://ecom.amlanbd.com",
+    image: "/project/ecom.webp",
   },
 ];
 
@@ -241,102 +210,27 @@ const formatProjectNumber = (value, index) => {
   return String(index + 1).padStart(2, "0");
 };
 
-const normalizeProject = (doc, index) => {
-  const data = doc.data();
-  const fallback = defaultProjects[index % defaultProjects.length] || defaultProjects[0];
-  const tech = Array.isArray(data.tech) && data.tech.length ? data.tech : fallback.tech;
-
-  return {
-    number: formatProjectNumber(data.number || data.order, index),
-    title: data.title || fallback.title || "Portfolio Project",
-    category: data.category || "Selected Work",
-    description: data.description || "",
-    problem: data.problem || fallback.problem || "",
-    contribution: data.contribution || data.shipped || "",
-    result: data.result || "",
-    role: data.role || "",
-    tech,
-    accent: data.accent || fallback.accent || "violet",
-    link: data.link || "#contact",
-    image: data.image || fallback.image || heroVisual,
-  };
-};
-
-const normalizeExperience = (doc) => {
-  const data = doc.data();
-
-  return {
-    company: data.company || "",
-    role: data.role || "",
-    duration: data.duration || "",
-    location: data.location || "",
-    summary: data.summary || "",
-    points: Array.isArray(data.points) ? data.points : [],
-  };
-};
-
-const loadPortfolioContent = async () => {
-  try {
-    const [projectSnapshot, experienceSnapshot] = await Promise.all([
-      getDocs(query(collection(db, "projects"), orderBy("order", "desc"))),
-      getDocs(query(collection(db, "experiences"), orderBy("order", "asc"))),
-    ]);
-
-    const firebaseProjects = projectSnapshot.docs.map(normalizeProject);
-    const firebaseExperiences = experienceSnapshot.docs.map(normalizeExperience);
-
-    if (firebaseProjects.length) {
-      projects.value = firebaseProjects;
-    }
-
-    if (firebaseExperiences.length) {
-      experiences.value = firebaseExperiences;
-    }
-  } catch (err) {
-    console.error("Failed to load portfolio content from Firebase.", err);
-  }
-};
-
 const closeMenu = () => {
   mobileMenuOpen.value = false;
 };
 
-const submitContact = async () => {
-  success.value = "";
+const submitContact = () => {
   error.value = "";
+  success.value = "";
 
-  const payload = {
-    name: form.value.name.trim(),
-    email: form.value.email.trim(),
-    message: form.value.message.trim(),
-  };
-
-  if (!payload.name || !payload.email || !payload.message) {
+  if (!form.value.name.trim() || !form.value.email.trim() || !form.value.message.trim()) {
     error.value = "Please complete all fields.";
     return;
   }
 
-  try {
-    loading.value = true;
+  const mailto = `mailto:amlankumar47@gmail.com?subject=${encodeURIComponent(
+    `Contact from ${form.value.name}`
+  )}&body=${encodeURIComponent(
+    `Name: ${form.value.name}\nEmail: ${form.value.email}\n\n${form.value.message}`
+  )}`;
 
-    await addDoc(collection(db, "contacts"), {
-      ...payload,
-      createdAt: serverTimestamp(),
-    });
-
-    success.value = "Thank you. Your message has been sent.";
-    form.value = { name: "", email: "", message: "" };
-  } catch {
-    error.value = "The message could not be sent. Please try again.";
-  } finally {
-    loading.value = false;
-  }
+  window.location.href = mailto;
 };
-
-onMounted(async () => {
-  //await seedProjects();
-  await loadPortfolioContent();
-});
 </script>
 
 <template>
