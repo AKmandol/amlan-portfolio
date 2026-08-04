@@ -203,7 +203,7 @@ img {
 
 .site-header {
   position: fixed;
-  z-index: 70;
+  z-index: 100;
   top: 0;
   right: 0;
   left: 0;
@@ -335,6 +335,8 @@ img {
   border: 0;
   border-radius: 10px;
   background: var(--color-surface-toggle);
+  cursor: pointer;
+  z-index: 105;
 }
 
 .menu-toggle span {
@@ -351,7 +353,7 @@ img {
   align-items: center;
   gap: clamp(48px, 7vw, 110px);
   width: min(1120px, calc(100% - 56px));
-  min-height: 100vh;
+  height: max-content;
   margin: 0 auto;
   padding: 150px 0 90px;
 }
@@ -2013,7 +2015,9 @@ img {
   }
 
   .menu-toggle {
-    display: block;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   .nav-links {
@@ -2032,6 +2036,7 @@ img {
     pointer-events: none;
     transform: translateY(-8px);
     transition: opacity 180ms ease, transform 180ms ease;
+    z-index: 120;
   }
 
   .nav-links.open {
@@ -2055,7 +2060,8 @@ img {
 
   .hero {
     grid-template-columns: 1fr;
-    padding-top: 140px;
+    min-height: auto;
+    padding: 110px 0 60px;
   }
 
   .hero-copy {
@@ -2167,7 +2173,8 @@ img {
 
   .hero {
     gap: 50px;
-    padding: 125px 0 70px;
+    min-height: auto;
+    padding: 95px 0 50px;
   }
 
   .availability {

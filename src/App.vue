@@ -424,8 +424,6 @@ onMounted(async () => {
               <img src="/me.png" alt="Profile" class="profile-img" />
             </div>
           </div>
-          
-
         </div>
       </section>
 
