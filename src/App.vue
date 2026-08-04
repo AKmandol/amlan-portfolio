@@ -73,7 +73,7 @@ const defaultProjects = [
   },
   {
     number: "03",
-    title: "Payment Integration Service",
+    title: "Payment Services",
     category: "Fintech & Payments",
     description:
       "A service that integrates various payment gateways for seamless transactions.",
