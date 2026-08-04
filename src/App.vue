@@ -36,56 +36,76 @@ const seedProjects = async () => {
 
 const defaultProjects = [
   {
-    number: "04",
-    title: "E-Commerce Platform",
-    category: "E-Commerce",
-    description: "Custom shop, admin, checkout and reporting workflow.",
-    problem: "Orders, products and payments needed one clean control panel.",
-    contribution: "RBAC, catalogue, checkout, orders, reporting",
-    result: "Faster admin control and clearer payment visibility.",
-    role: "Full-stack delivery",
-    tech: ["Laravel", "Vue.js", "MySQL", "Payment APIs"],
-    accent: "rose",
-    link: "https://ecom.amlanbd.com",
-  },
-  {
-    number: "03",
-    title: "Travel Platform",
-    category: "Travel Technology",
-    description: "Travel packages, booking flow, admin tools and payment.",
-    problem: "Discovery, booking and payment felt disconnected.",
-    contribution: "Booking lifecycle, admin tools, payment flow",
-    result: "Clearer path from package to confirmed booking.",
-    role: "Laravel + Vue delivery",
-    tech: ["Laravel", "Vue.js", "Stripe", "SSLCommerz"],
-    accent: "amber",
-    link: "http://tour.amlanbd.com",
-  },
-  {
     number: "01",
-    title: "Crypto Deposit System",
-    category: "FinTech / Payment Gateway",
-    description: "Crypto deposit flow with callbacks and admin tracking.",
-    problem: "Manual deposit checks slowed operations.",
-    contribution: "Gateway, webhooks, transaction states",
-    result: "Less manual verification. Better audit trail.",
-    role: "Backend + dashboard",
-    tech: ["AdonisJS", "Vue.js", "Crypto APIs", "REST"],
-    accent: "violet",
-    link: "https://ovypay.com",
+    title: "Travel Agency System",
+    category: "Travel & Booking",
+    description:
+      "A comprehensive travel agency system for managing bookings, payments, and customer interactions.",
+    problem:
+      "The client needed a robust system to handle complex travel bookings and integrate multiple payment gateways.",
+    contribution:
+      "Developed the backend APIs, integrated payment gateways, and built the user interface for managing bookings.",
+    result:
+      "The system streamlined the booking process, improved customer satisfaction, and increased revenue.",
+    role: "Full-Stack Developer",
+    tech: ["Laravel", "Vue.js", "SSLCommerz", "MySQL"],
+    accent: "blue",
+    link: "https://tour.amlanbd.com",
+    image: "/project/tour.webp",
   },
   {
     number: "02",
-    title: "CRM Admin, Partner & Client Portal",
-    category: "Forex CRM / Partner Platform",
-    description: "CRM portals for admin, partner and client operations.",
-    problem: "Teams needed one place for partners, payouts and reports.",
-    contribution: "CRM modules, dashboards, commission flows",
-    result: "Partner activity, payouts and reports in one system.",
-    role: "Full-stack features",
-    tech: ["Laravel", "AdonisJS", "Vue.js", "ApexCharts"],
-    accent: "cyan",
+    title: "E-Commerce Platform",
+    category: "Retail & E-Commerce",
+    description:
+      "An e-commerce platform that allows users to browse products, make purchases, and track orders.",
+    problem:
+      "The client required a scalable e-commerce solution with secure payment processing and order management.",
+    contribution:
+      "Implemented the product catalog, shopping cart, checkout process, and integrated multiple payment options.",
+    result:
+      "The platform increased online sales and provided a seamless shopping experience for customers.",
+    role: "Backend Developer",
+    tech: ["Laravel", "Vue.js", "Stripe", "MySQL"],
+    accent: "green",
+    link: "https://ecom.amlanbd.com",
+    image: "/project/ecom.webp",
+  },
+  {
+    number: "03",
+    title: "Payment Integration Service",
+    category: "Fintech & Payments",
+    description:
+      "A service that integrates various payment gateways for seamless transactions.",
+    problem:
+      "The client required a unified payment solution to handle multiple payment methods and ensure secure transactions.",
+    contribution:
+      "Integrated multiple payment gateways, implemented transaction tracking, and ensured compliance with security standards.",
+    result:
+      "The service enabled smooth payment processing and enhanced the overall user experience.",
+    role: "Backend Developer",
+    tech: ["AdonisJS", "Node.js", "Vue.js"],
+    accent: "purple",
+    link: "https://ovypay.com",
+    image: "/project/ovy.jpg",
+  },
+  {
+    number: "04",
+    title: "CRM System",
+    category: "Customer Relationship Management",
+    description:
+      "A CRM system designed to help businesses manage customer interactions and data effectively.",
+    problem:
+      "The client needed a solution to track customer interactions, manage leads, and improve customer relationships.",
+    contribution:
+      "Developed the CRM backend, implemented lead management features, and created dashboards for analytics.",
+    result:
+      "The CRM system improved customer engagement and provided valuable insights into customer behavior.",
+    role: "Software Engineer",
+    tech: ["Laravel","AdonisJS", "Vue.js", "MySQL"],
+    accent: "orange",
     link: "https://forexcrm.ca",
+    image: "/project/forex.png",
   },
 ];
 
@@ -94,25 +114,25 @@ const capabilities = [
     index: "01",
     title: "Backend Systems",
     description: "APIs, business rules and secure service logic.",
-    tools: "Laravel / AdonisJS / Node.js / REST / JWT",
+    tools: "Laravel / PHP / AdonisJS / Node.js / REST / JWT / MySQL / Redis / MongoDB / PostgreSQL / Firebase",
   },
   {
     index: "02",
     title: "Product Interfaces",
     description: "Dashboards and workflows built for daily use.",
-    tools: "Vue.js / Vuex / Vuetify / ApexCharts / Tailwind",
+    tools: "Vue.js / React.js / iView / Vuetify / ApexCharts / Tailwind / Bootstrap",
   },
   {
     index: "03",
     title: "Payments & Integrations",
     description: "Gateways, webhooks and traceable payment states.",
-    tools: "Stripe / SSLCommerz / OvyPay / CheezyPay / G-Pay",
+    tools: "Stripe / SSLCommerz / OvyPay / CheezyPay / G-Pay / Pay Agency / BennuPay / CheezyPay",
   },
   {
     index: "04",
     title: "Delivery & Operations",
     description: "Deployments, server setup and release workflow.",
-    tools: "Linux / Nginx / PM2 / cPanel / Git",
+    tools: "Linux / Nginx / PM2 / cPanel / Git / GitHub / GitLab / CI/CD / Docker",
   },
 ];
 
@@ -163,14 +183,22 @@ const defaultExperiences = [
   {
     company: "Netcoden Inc.",
     role: "Software Engineer",
-    duration: "Aug 2023 - Present",
+    duration: "Aug 2023 - Jul 2026",
     location: "Dhaka, Bangladesh",
     summary:
       "Building CRM, partner and payment systems.",
     points: [
-      "CRM and partner modules",
-      "Crypto and card payment flows",
-      "Releases and Linux operations",
+      "Laravel / AdonisJS / Node / Vue.js application builds.",
+      "CRM and partner modules.",
+      "Crypto and card payment flows.",
+      "Releases and Linux operations.",
+      "API integrations and webhooks.",
+      "Database design and query optimization.",
+      "Performance monitoring and troubleshooting.",
+      "CI/CD and Git workflow.",
+      "System architecture and design.",
+      "Team collaboration and code reviews.",
+      "Client communication and requirement gathering."
     ],
   },
   {
@@ -181,9 +209,11 @@ const defaultExperiences = [
     summary:
       "Delivered Laravel and Vue client applications.",
     points: [
-      "Laravel and Vue application builds",
-      "Database design and query improvement",
-      "Payments, analytics and CRM integrations",
+      "Laravel / AdonisJS / Vue.js / WP application builds.",
+      "Database design and query improvement.",
+      "Payments, analytics and CRM integrations.",
+      "System architecture and design.",
+      "Client communication and requirement gathering."
     ],
   },
 ];
@@ -228,6 +258,7 @@ const normalizeProject = (doc, index) => {
     tech,
     accent: data.accent || fallback.accent || "violet",
     link: data.link || "#contact",
+    image: data.image || fallback.image || heroVisual,
   };
 };
 
@@ -247,7 +278,7 @@ const normalizeExperience = (doc) => {
 const loadPortfolioContent = async () => {
   try {
     const [projectSnapshot, experienceSnapshot] = await Promise.all([
-      getDocs(query(collection(db, "projects"), orderBy("order", "asc"))),
+      getDocs(query(collection(db, "projects"), orderBy("order", "desc"))),
       getDocs(query(collection(db, "experiences"), orderBy("order", "asc"))),
     ]);
 
@@ -316,7 +347,7 @@ onMounted(async () => {
     <header class="site-header">
       <nav class="navbar" aria-label="Primary navigation">
         <a class="brand" href="#top" aria-label="Amlan Kumar Mandol, home" @click="closeMenu">
-          <img src="/akm.jpg" class="icon-image" alt="">
+          <p class="icon-image"></p>
           <span class="brand-copy">
             <strong>Amlan Kumar Mandol</strong>
             <small>Software Engineer</small>
@@ -331,7 +362,6 @@ onMounted(async () => {
 
         <div class="nav-links" :class="{ open: mobileMenuOpen }">
           <a href="#about" @click="closeMenu">About</a>
-          <a href="#skills" @click="closeMenu">Skills</a>
           <a href="#projects" @click="closeMenu">Work</a>
           <a href="#experience" @click="closeMenu">Experience</a>
           <a class="nav-cta" href="#contact" @click="closeMenu">
@@ -349,22 +379,23 @@ onMounted(async () => {
             Available for software engineer roles
           </div>
 
-          <p class="hero-kicker">Laravel, AdonisJS and Vue.js engineer</p>
+          <p class="hero-kicker">Laravel, Node/AdonisJS, Vue.js, Git, CI/CD, AI engineer</p>
 
           <h1>
             I build practical software
             <em>companies can trust.</em>
           </h1>
 
-           
+
           <div class="profile-card" aria-label="Professional profile summary">
             <div class="profile-avatar">
-              <img src="/akm.jpg" alt="akm">
+              <p class="avatar-initials">AKM</p>
             </div>
             <div class="profile-card-copy">
               <span>Full-Stack Software Engineer</span>
               <strong>Amlan Kumar Mandol</strong>
-              <p>Laravel / AdonisJS / Node / Vue.js / React.js </p> <p>-- Dhaka, Bangladesh</p>
+              <p>Laravel / AdonisJS / Node / Vue.js / React.js / Git </p>
+              <p>-- Dhaka, Bangladesh</p>
             </div>
             <div class="profile-tags" aria-label="Primary strengths">
               <span>CRM</span>
@@ -386,130 +417,38 @@ onMounted(async () => {
 
         </div>
 
-        <div class="hero-visual" aria-label="Application architecture overview">
-          <div class="visual-frame">
-            <div class="visual-topbar">
-              <div class="visual-status">
-                <span></span>
-                SYSTEM ARCHITECTURE
-              </div>
-              <span>AK / 2026</span>
-            </div>
+        <div class="hero-visual" aria-hidden="true">
 
-            <div class="architecture">
-              <div class="architecture-copy">
-                <span class="architecture-label">Core focus</span>
-                <h2>From interface to infrastructure.</h2>
-                <p>
-                  Frontend, backend and integrations working as one system.
-                </p>
-              </div>
-
-              <img :src="heroVisual" alt="" />
-
-            </div>
-
-            <div class="visual-footer">
-              <span>Vue.js</span>
-              <span>Laravel</span>
-              <span>AdonisJS</span>
-              <span>MySQL</span>
+          <div class="hexagon-wrapper">
+            <div class="hexagon-shape">
+              <img src="/me.png" alt="Profile" class="profile-img" />
             </div>
           </div>
+          
 
-          <div class="floating-note tech-note note-laravel">
-            <span>Backend/API</span>
-            Laravel
-          </div>
-          <div class="floating-note tech-note note-adonis">
-            <span>Backend/API</span>
-            AdonisJS
-          </div>
-          <div class="floating-note tech-note note-vue">
-            <span>Frontend</span>
-            Vue.js / React.js
-          </div>
-          <div class="floating-note tech-note note-mysql">
-            <span>Database</span>
-            MySQL / PostgreSQL
-          </div>
         </div>
       </section>
 
       <div class="trust-strip" aria-label="Areas of expertise">
-        <span>CRM Platforms</span>
+        <img class="skill-img p-1" src="/logo/p1.png" alt="">
         <i></i>
-        <span>FinTech Workflows</span>
+        <img class="skill-img" src="/logo/p2.png" alt="">
         <i></i>
-        <span>Partner Systems</span>
+        <img class="skill-img" src="/logo/p3.png" alt="">
         <i></i>
-        <span>Payment Infrastructure</span>
+        <img class="skill-img" src="/logo/p4.png" alt="">
         <i></i>
-        <span>API Integrations</span>
+        <img class="skill-img p-1" src="/logo/p6.png" alt="">
+        <i></i>
+        <img class="skill-img" src="/logo/p7.png" alt="">
+        <i></i>
+        <img class="skill-img p-1" src="/logo/p5.png" alt="">
       </div>
-
-      <section id="about" class="section about-section">
-        <div class="section-index">
-          <span>01</span>
-          About
-        </div>
-
-        <div class="about-content">
-          <p class="lead">
-            Complex requirements.
-            <strong>Clear software.</strong>
-          </p>
-
-        </div>
-
-        <div class="proof-grid" aria-label="Professional proof points">
-          <article v-for="item in proofStats" :key="item.label">
-            <strong>{{ item.value }}</strong>
-            <span>{{ item.label }}</span>
-          </article>
-        </div>
-
-        <div class="capability-list">
-          <article v-for="capability in capabilities" :key="capability.title" class="capability-row">
-            <span class="capability-index">{{ capability.index }}</span>
-            <div>
-              <h3>{{ capability.title }}</h3>
-              <p>{{ capability.description }}</p>
-            </div>
-            <strong>{{ capability.tools }}</strong>
-          </article>
-        </div>
-      </section>
-
-      <section id="skills" class="section skills-section">
-        <div class="section-heading">
-          <div class="section-index">
-            <span>02</span>
-            Toolbox
-          </div>
-          <div>
-            <h2>Core tools I use to ship.</h2>
-          </div>
-        </div>
-
-        <div class="skills-grid">
-          <article v-for="group in skillGroups" :key="group.title" class="skill-card">
-            <div class="skill-card-head">
-              <img :src="group.logo" :alt="group.title" class="skill-logo" />
-              <strong>{{ group.title }}</strong>
-            </div>
-
-            <div class="skill-list">
-              <strong v-for="item in group.items" :key="item">{{ item }}</strong>
-            </div>
-          </article>
-        </div>
-      </section>
 
       <section id="projects" class="section projects-section">
         <div class="section-heading">
           <div class="section-index">
-            <span>03</span>
+            <span>01</span>
             Selected work
           </div>
           <div>
@@ -532,13 +471,8 @@ onMounted(async () => {
             </div>
 
             <div class="project-visual" aria-hidden="true">
-              <div class="visual-toolbar">
-                <span></span>
-                <span></span>
-                <span></span>
-                <small>System overview</small>
-              </div>
               <div class="visual-system">
+                <img :src="project.image" :alt="`Project visual: ${project.title}`" class="project-visual-img" />
                 <div class="system-node node-primary">
                   <small>Core</small>
                   <strong>{{ project.tech[0] }}</strong>
@@ -571,7 +505,7 @@ onMounted(async () => {
                 <strong>{{ project.role }}</strong>
               </div>
               <div class="proof-item">
-                <span>What I shipped</span>
+                <span>Shipped</span>
                 <strong>{{ project.contribution }}</strong>
               </div>
               <div class="proof-item">
@@ -593,45 +527,80 @@ onMounted(async () => {
         </div>
       </section>
 
-      <section id="experience" class="section experience-section">
-        <div class="section-heading">
-          <div class="section-index">
-            <span>04</span>
-            Experience
-          </div>
-          <div>
-            <h2>Experience shipping production systems.</h2>
-          </div>
+      <section id="about" class="section about-section">
+        <div class="section-index">
+          <span>02</span>
+          About
         </div>
 
-        <div class="experience-list">
-          <article v-for="exp in experiences" :key="exp.company" class="experience-item">
-            <div class="experience-period">
-              <span>{{ exp.duration }}</span>
-              <small>{{ exp.location }}</small>
-            </div>
+        <div class="about-content">
+          <p class="lead">
+            Complex requirements.
+            <strong>Clear software.</strong>
+          </p>
 
-            <div class="experience-role">
-              <div class="experience-title-row">
-                <span>{{ exp.company }}</span>
-                <small>{{ exp.location }}</small>
-              </div>
-              <h3>{{ exp.role }}</h3>
-              <p>{{ exp.summary }}</p>
-            </div>
+        </div>
 
-            <ul>
-              <li v-for="point in exp.points" :key="point">{{ point }}</li>
-            </ul>
+        <div class="proof-grid" aria-label="Professional proof points">
+          <article v-for="item in proofStats" :key="item.label">
+            <strong>{{ item.value }}</strong>
+            <span>{{ item.label }}</span>
+          </article>
+        </div>
+
+        <div class="capability-list">
+          <article v-for="capability in capabilities" :key="capability.title" class="capability-row">
+            <span class="capability-index">{{ capability.index }}</span>
+            <div>
+              <h3>{{ capability.title }}</h3>
+              <p>{{ capability.description }}</p>
+            </div>
+            <strong>{{ capability.tools }}</strong>
           </article>
         </div>
       </section>
+
+      <div class="experience">
+        <section id="experience" class="section experience-section">
+          <div class="section-heading">
+            <div class="section-index">
+              <span>03</span>
+              Experience
+            </div>
+            <div>
+              <h2>Experience shipping production systems.</h2>
+            </div>
+          </div>
+
+          <div class="experience-list">
+            <article v-for="exp in experiences" :key="exp.company" class="experience-item">
+              <div class="experience-period">
+                <span>{{ exp.duration }}</span>
+                <small>{{ exp.location }}</small>
+              </div>
+
+              <div class="experience-role">
+                <div class="experience-title-row">
+                  <span>{{ exp.company }}</span>
+                  <small>{{ exp.location }}</small>
+                </div>
+                <h3>{{ exp.role }}</h3>
+                <p>{{ exp.summary }}</p>
+              </div>
+
+              <ul>
+                <li v-for="point in exp.points" :key="point">{{ point }}</li>
+              </ul>
+            </article>
+          </div>
+        </section>
+      </div>
 
       <section id="contact" class="contact-section">
         <div class="contact-intro">
           <div class="contact-label-row">
             <div class="section-index light">
-              <span>05</span>
+              <span>04</span>
               Contact
             </div>
             <div class="contact-availability">
@@ -650,7 +619,8 @@ onMounted(async () => {
             <a href="tel:+8801733472747">
               <span class="contact-card-icon" aria-hidden="true">
                 <svg viewBox="0 0 24 24" focusable="false">
-                  <path d="M6.6 10.8c1.4 2.8 3.8 5.2 6.6 6.6l2.2-2.2c.3-.3.8-.4 1.2-.3 1.3.4 2.6.6 4 .6.7 0 1.2.5 1.2 1.2v3.5c0 .7-.5 1.2-1.2 1.2C10.3 21.9 2.1 13.7 2.1 3.4c0-.7.5-1.2 1.2-1.2h3.5c.7 0 1.2.5 1.2 1.2 0 1.4.2 2.7.6 4 .1.4 0 .9-.3 1.2l-1.7 2.2Z" />
+                  <path
+                    d="M6.6 10.8c1.4 2.8 3.8 5.2 6.6 6.6l2.2-2.2c.3-.3.8-.4 1.2-.3 1.3.4 2.6.6 4 .6.7 0 1.2.5 1.2 1.2v3.5c0 .7-.5 1.2-1.2 1.2C10.3 21.9 2.1 13.7 2.1 3.4c0-.7.5-1.2 1.2-1.2h3.5c.7 0 1.2.5 1.2 1.2 0 1.4.2 2.7.6 4 .1.4 0 .9-.3 1.2l-1.7 2.2Z" />
                 </svg>
               </span>
               <span class="contact-card-copy">
@@ -664,7 +634,8 @@ onMounted(async () => {
             <a href="mailto:amlankumar47@gmail.com">
               <span class="contact-card-icon" aria-hidden="true">
                 <svg viewBox="0 0 24 24" focusable="false">
-                  <path d="M4 5h16c1.1 0 2 .9 2 2v10c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V7c0-1.1.9-2 2-2Zm8 8.1L20 8V7.7l-8 5.1-8-5.1V8l8 5.1Z" />
+                  <path
+                    d="M4 5h16c1.1 0 2 .9 2 2v10c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V7c0-1.1.9-2 2-2Zm8 8.1L20 8V7.7l-8 5.1-8-5.1V8l8 5.1Z" />
                 </svg>
               </span>
               <span class="contact-card-copy">
@@ -713,7 +684,7 @@ onMounted(async () => {
 
     <footer class="site-footer">
       <a class="brand footer-brand" href="#top" aria-label="Back to top">
-        <img src="/akm.jpg" class="icon-image" alt="">
+        <span class="text-logo">AKM</span>
         <span class="brand-copy">
           <strong>Amlan Kumar Mandol</strong>
           <small>Full-Stack Software Engineer</small>
