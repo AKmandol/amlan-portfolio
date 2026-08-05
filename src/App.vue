@@ -250,8 +250,11 @@ const submitContact = () => {
 
         <button class="menu-toggle" type="button" :aria-expanded="mobileMenuOpen" aria-label="Toggle navigation"
           @click="mobileMenuOpen = !mobileMenuOpen">
-          <span></span>
-          <span></span>
+          <svg class="menu-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <path class="menu-icon-line line1" d="M4 7h16" />
+            <path class="menu-icon-line line2" d="M4 12h16" />
+            <path class="menu-icon-line line3" d="M4 17h16" />
+          </svg>
         </button>
 
         <div class="nav-links" :class="{ open: mobileMenuOpen }">
@@ -323,18 +326,20 @@ const submitContact = () => {
 
       <div class="trust-strip" aria-label="Areas of expertise">
         <img class="skill-img p-1" src="/logo/p1.png" alt="">
-        <i></i>
+        <i class="skill-li"></i>
         <img class="skill-img" src="/logo/p2.png" alt="">
-        <i></i>
+        <i class="skill-li"></i>
         <img class="skill-img" src="/logo/p3.png" alt="">
-        <i></i>
+        <i class="skill-li"></i>
         <img class="skill-img" src="/logo/p4.png" alt="">
-        <i></i>
+        <i class="skill-li"></i>
         <img class="skill-img p-1" src="/logo/p6.png" alt="">
-        <i></i>
+        <i class="skill-li"></i>
         <img class="skill-img" src="/logo/p7.png" alt="">
-        <i></i>
+        <i class="skill-li"></i>
         <img class="skill-img p-1" src="/logo/p5.png" alt="">
+        <i class="skill-li"></i>
+        <img class="skill-img p-1" src="/logo/p8.png" alt="">
       </div>
 
       <section id="projects" class="section projects-section">
