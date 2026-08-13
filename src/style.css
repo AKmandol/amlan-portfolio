@@ -2587,3 +2587,20 @@ img {
 .p-1{
   padding: 5px;
 }
+
+.profile-tags.social-links {
+    --social-bg: var(--theme-color, #05499700);
+    --social-fg: var(--theme-on-color, #77a3fc);
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .social-link svg {
+    display: block;
+  }
+
+  .social-link svg rect { fill: var(--social-bg); }
+  .social-link svg path,
+  .social-link svg text { fill: var(--social-fg); }
