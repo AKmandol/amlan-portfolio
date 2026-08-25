@@ -80,7 +80,7 @@
           </span>
           <span class="contact-card-copy">
             <small>Email</small>
-            <strong>amlankumar47@gmail.com</strong>
+            <strong>amlan.mandol001@gmail.com</strong>
           </span>
         </a>
       </div>

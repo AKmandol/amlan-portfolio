@@ -1,6 +1,6 @@
 <script setup>
 import { ref } from "vue";
-import { NCarousel, NImage, NImageGroup } from "naive-ui";
+import { NCarousel, NImage, NImageGroup  } from "naive-ui";
 
 const defaultProjects = [
   {
@@ -19,7 +19,11 @@ const defaultProjects = [
     tech: ["Laravel", "AdonisJS", "Vue.js", "MySQL"],
     accent: "orange",
     link: "https://forexcrm.ca",
-    image: ["/project/forex1.png", "/project/forex2.avif", "/project/forex3.avif"],
+    image: [
+      "/project/forex1.png",
+      "/project/forex2.png",
+      "/project/forex3.avif",
+    ],
   },
   {
     number: "02",
@@ -55,7 +59,11 @@ const defaultProjects = [
     tech: ["Laravel", "Vue.js", "SSLCommerz", "MySQL"],
     accent: "orange",
     link: "https://tour.amlanbd.com",
-    image: ["/project/tour1.avif", "/project/tour2.avif", "/project/tour3.avif"],
+    image: [
+      "/project/tour1.avif",
+      "/project/tour2.avif",
+      "/project/tour3.avif",
+    ],
   },
   {
     number: "04",
@@ -76,13 +84,12 @@ const defaultProjects = [
     image: ["/project/ecom1.avif", "/project/ecom2.jpg", "/project/ecom3.avif"],
   },
 ];
+
+
 const projects = ref(defaultProjects);
 </script>
 
-<style scoped>
-    
-</style>
-
+<style scoped></style>
 
 <template>
   <section id="projects" class="section projects-section">
@@ -127,10 +134,9 @@ const projects = ref(defaultProjects);
           <div class="visual-system">
             <n-image-group>
               <n-carousel
-                autoplay
+                :show-arrow="true"
                 :interval="2000"
-                effect="custom"
-                :transition-props="{ name: 'creative' }"
+                :effect="fade"
                 style="width: 100%; height: 240px"
               >
                 <n-image
@@ -139,7 +145,7 @@ const projects = ref(defaultProjects);
                   :src="image"
                   :alt="`Project visual ${index + 1}: ${project.title}`"
                   class="project-visual-img"
-                  object-fit="cover"
+                  lazy
                 />
               </n-carousel>
             </n-image-group>
@@ -193,10 +199,7 @@ const projects = ref(defaultProjects);
         <!-- Technologies + Link -->
         <div class="project-meta">
           <div class="tech-list">
-            <span
-              v-for="item in project.tech"
-              :key="item"
-            >
+            <span v-for="item in project.tech" :key="item">
               {{ item }}
             </span>
           </div>
